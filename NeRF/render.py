@@ -147,18 +147,18 @@ def render_rays(rays_batch,
             ret = {'rgb_map': rgb_map, 'disp_map': disp_map, 'acc_map': acc_map}
 
             if retraw:
-                # 如果是两个网络，那么这个raw就是最后精细网络的输出
+
                 ret['raw'] = raw
 
             if N_importance > 0:
-                # 下面的0是粗糙网络的输出
+
                 ret['rgb0'] = rgb_map_0
                 ret['disp0'] = disp_map_0
                 ret['acc0'] = acc_map_0
 
                 ret['z_std'] = torch.std(z_samples, dim=-1, unbiased=False)  # [N_rays]
 
-            # 检查是否有异常值
+
             for k in ret:
                 if (torch.isnan(ret[k]).any() or torch.isinf(ret[k]).any()) and DEBUG:
                     print(f"! [Numerical Error] {k} contains nan or inf.")
