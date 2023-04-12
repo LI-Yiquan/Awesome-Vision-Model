@@ -1,14 +1,12 @@
 import torch
+import numpy as np
 
-a = torch.tensor(
-    [[1,2,3],
-     [4,5,6],
-     [7,8,9]]
-)
+batch_size = 8
+class_num = 10
+pos_num = 5
+label = np.random.randint(0,class_num,size=(batch_size,pos_num,1))
+label = torch.LongTensor(label)
+y_one_hot = torch.zeros([batch_size,pos_num,class_num]).scatter_(2,label,1)
 
-b = torch.tensor(
-    [[10,20,30],
-     [40,50,60],
-     [70,80,90]]
-)
-print(torch.stack((a,b),1))
+print(y_one_hot)
+
